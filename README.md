@@ -1,38 +1,44 @@
 #### Intro-to-Mongo-DB
 
 Installing community version of mongoDB in local machine
+
 ```
 brew tap mongodb/brew
 brew install mongodb-community
 ```
 
-Starting and stopping the service with 
+Starting and stopping the service with
+
 - `brew services start mongodb-community`
 - `brew services stop mongodb-community`
 
 #### Installing mongosh
+
 - https://www.youtube.com/watch?v=AF1yiS9Avrw
 - https://www.mongodb.com/docs/mongodb-shell/install/
 - start the mongodb database then run `mongosh` in another terminal to start the shell.
 
 #### General Information
+
 - MongoDB compass is a local interface that allows us to interact with databases
 
-
 #### Mongosh commands
+
 - `show databases` or `show dbs` - will show the list of databases
 - `use bookstore` - will change the current database to `bookstore`
 - `cls` will clear the screen
 - `db` will list the name of the current database
 - `show collections` will list the collections of the current database
 - `var name = "Dav"` will create a variable, which can then be modified like js variable.
-- `help` -  will list the available commands
+- `help` - will list the available commands
 - `exit`- will exit the mongosh
 
-#### Inserting collection 
+#### List of commands
+
 (We are assuming `bookstore` is a database and `books` is a collection in that database)
+
 - `db.bookstore.insertOne()` - This will insert one document in the collection
-- `db.bookstore.insertOne({title:"The magic",pages:500})` 
+- `db.bookstore.insertOne({title:"The magic",pages:500})`
 - If a collection does not exist, `insertOne` will still create one in order to add document in it (Just like an object property is created if it does not exit in js)
 - `db.bookstore.insertMany([{},{},{}])` - This will insert many documents in the collection
 - `db.books.find()` - Will find the first 20 documents from this collection
@@ -40,5 +46,15 @@ Starting and stopping the service with
 - `db.books.find({author:"J.K Rowling"},{title:1, author:1})` - `find` takes a second argument as an object and only returns properties that are 1/true.
 - `db.books.find({},{title:1, author:1})` - It will send first 20 documents with title and author properties only.
 - `db.books.findOne({title:"Something"})` - This will find only one document from collection.
-- 
+- `db.books.find().count()` - chaining `count()` will give the number of results that `find()` returned.
+- `db.books.find().limit(3)` - This will limit the number of returned results to a limit of 3.
+- `db.books.find().sort({title:1})` - This will sort with title in ascending order
+- `db.books.find().sort({title:-1})` - This will sort with title in descending order
 
+# Commands for operators and complex queries
+
+- `db.books.find({rating:{$gt :7}})` - `{$gt :7}` This will filter with rating greater than 7 (not including 7). `{$gte :7}` will include 7
+- `db.books.find({rating:{$lt :7}})` - `{$lt :7}` This will filter with rating less than 7 (not including 7). `{$lte :7}` will include 7
+- `db.books.find({$or: [{rating: 7},{rating: 9}] })` - `or` operator will find using both filters if they exist. It will find books with 7 and books with rating 9 both of them if available.
+- `db.books.find({$or: [ {pages: {$lt:300}}, {pages: {$gt:400}}] })` -  This will look for books with pages <300 or pages>400
+- 
