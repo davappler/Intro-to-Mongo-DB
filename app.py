@@ -1,13 +1,15 @@
 from flask import Flask
-import pymongo
+from repository import UserRepository
 
 app = Flask(__name__)
 
-def get_user_collection():
+
+def get_db_config():
+    return {"host": "localhost", "port": 27017, "db": "test"}
 
 
 @app.route("/")
 def create_user():
-    collection = get_user_collection()
-    collection.insert_one({"username": "testdata"})
-    return "successfully inserted username"
+    user_repository = UserRepository(get_db_config())
+    user = user_repository.create_user(username="test")
+    return f"successully created user {user}"
