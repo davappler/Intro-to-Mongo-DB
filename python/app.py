@@ -1,5 +1,5 @@
 from flask import Flask
-from repository import UserRepository
+from python.repository import UserRepository
 
 app = Flask(__name__)
 
