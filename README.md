@@ -57,4 +57,10 @@ Starting and stopping the service with
 - `db.books.find({rating:{$lt :7}})` - `{$lt :7}` This will filter with rating less than 7 (not including 7). `{$lte :7}` will include 7
 - `db.books.find({$or: [{rating: 7},{rating: 9}] })` - `or` operator will find using both filters if they exist. It will find books with 7 and books with rating 9 both of them if available.
 - `db.books.find({$or: [ {pages: {$lt:300}}, {pages: {$gt:400}}] })` -  This will look for books with pages <300 or pages>400
+- `db.books.find({rating: {$in:[7,8,9]}})` - This will find the books in range of (7,8,9) including 7 and 9.
+- `db.books.find({rating: {$nin:[7,8,9]}})` - This will find the books that are not in range of (7,8,9).
+- `db.books.find({genres:"fantasy"})` - Here in this case `genres` is an array, and if array contains the string `fantasy` then the book document will be returned. 
+- `db.books.find({genres:['fantasy']})` - Here now we have encapsulated the word with square brackets and now it will look for exact match of the array, it will only return if there is an array `['fantasy']`
+- `db.books.find({genres: {$all:["fantasy","magic"]} })` - using the `$all` will not look for exact array match, it will look for arrays that contain both fantasy and magic and returns that document.
+- `db.books.find({"reviews.name":"luigi"})` - This is finding in nested objects, it will returns the document in which `luigi` is a name under review property
 - 
