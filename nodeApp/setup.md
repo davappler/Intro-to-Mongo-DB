@@ -1,0 +1,5 @@
+- `npm init -y` - Setup the package.json file
+- `npm install express --save`- install express 
+- `npm install -g nodemon` - Will install it globally
+- `nodemon app`- will run the express app
+- `npm install mongodb --save` - This will install the mongodb drivers for node
