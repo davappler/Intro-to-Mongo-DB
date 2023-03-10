@@ -78,10 +78,47 @@ Starting and stopping the service with
 - `db.books.updateOne({_id: ObjectId("1234324234234232432")} , {$push: {genres: "fantasy"}} )` - This `push` keyword will add the `fantasy` string to the genres array,
 - `db.books.updateOne({_id: ObjectId("1234324234234232432")} , {$push: {genres: {$each: ["fantasy","thriller"]} }} )` - This `push` keyword will add the `["fantasy","thriller"]` each of these strings to the genres array,
 
-
-
 - find() method does not return all the documents to us, here it returns a cursor object, it is an object that points to a set of documents. If find() has arguments then cursor object points to a subset of documents.
 - cursor objects has few methods which we can then use to fetch the data which the cursor points to, two of these methods are => `toArray` and `forEach`
 - toArray puts the documents that the cursor points to into an array
 - if we run a find method and it gets 50k documents from database, they do not all come in one go from database.
 - Data comes in batches of 101 documents, then forEach is executed on those 101 documents then next 101 are fetched and so on until 50k are iterated.
+
+# Setting up the express app and mongo db
+
+- run this node app with `nodemon app`
+- we are making a file `db.js` => `connectToDb` is responsible for establishing connection to the database and `getDB` is responsible for returning that connection.
+
+```
+module.exports = {
+  connectToDb: (cb) => {
+    MongoClient.connect("mongodb://localhost:27017/Bookstore")
+      .then((client) => {
+        dbConnection = client.db();
+        return cb();
+      })
+      .catch((error) => {
+        console.log(error);
+        return cb(error);
+      });
+  },
+  getDb: () => dbConnection,
+};
+```
+
+- In the above code we are passing `cb` as an argument to the `connectToDb` function, and then we invoke it when it is a success or invoke it with error when there is an error.
+
+
+```
+  db.collection("books")
+    .find()
+    .sort({ author: 1 })
+    .forEach((book) => {
+      books.push(book);
+    })
+    .then(() => {
+      res.status(200).json(books);
+    })
+```
+
+- In the code above `find` and `sort` return cursor and `forEach` is a cursor method that we apply on the cursor we get from `sort()`
