@@ -139,3 +139,9 @@ module.exports = {
 - `db.books.getIndexes()` => This will return the indexes present in the database.
 - Making indexes can improve the speed of search but making a lot of indexes can be troublesome because if we ever plan to change data then we will have to update indexes as well.
 - `db.books.dropIndex({rating:8})` => This will drop the index.
+
+# Connecting Mongo Atlas
+
+- Create a mongo cluster in the atlas platform
+- Click on connect to application then copy the URL
+- Paste the url in the db.js file with your username and password
