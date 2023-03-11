@@ -128,3 +128,14 @@ module.exports = {
 - The `app.use()` function adds a new middleware to the app.
 - `express.json()` is a built-in middleware function in Express. This method is used to parse the incoming requests with JSON payloads and is based upon the bodyparser.
 - `express.json()`: It parses incoming JSON requests and puts the parsed data in req.body.
+
+- `db.books.find({rating:8}).explain("executionStats")` => This will give data regarding the execution of the query
+
+# Indexes
+
+- Index are useful in terms of searching.
+- They help us avoid looping through all of the documents, it will check the index for the criteria you want and return those documents.
+- `db.books.createIndex({rating:8})` => This will create an index of rating 8.
+- `db.books.getIndexes()` => This will return the indexes present in the database.
+- Making indexes can improve the speed of search but making a lot of indexes can be troublesome because if we ever plan to change data then we will have to update indexes as well.
+- `db.books.dropIndex({rating:8})` => This will drop the index.
