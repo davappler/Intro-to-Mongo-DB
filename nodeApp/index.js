@@ -33,6 +33,27 @@ app.get("/books", (req, res) => {
     });
 });
 
+// Setting up pagination
+app.get("/booksPagination", (req, res) => {
+  const page = req.query.page || 0;
+  const booksPerPage = 3;
+  let books = [];
+  db.collection("books")
+    .find()
+    .sort({ author: 1 })
+    .skip(booksPerPage * page)
+    .limit(booksPerPage)
+    .forEach((book) => {
+      books.push(book);
+    })
+    .then(() => {
+      res.status(200).json(books);
+    })
+    .catch(() => {
+      res.status(500).json({ error: "could not fetch the documents." });
+    });
+});
+
 app.get("/books/:id", (req, res) => {
   const id = req.params.id;
 
