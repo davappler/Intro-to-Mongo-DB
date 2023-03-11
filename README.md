@@ -122,3 +122,10 @@ module.exports = {
 ```
 
 - In the code above `find` and `sort` return cursor and `forEach` is a cursor method that we apply on the cursor we get from `sort()`
+
+
+# Tips and knowledge
+- In the file we ass `app.use(express.json());`
+- The `app.use()` function adds a new middleware to the app.
+- `express.json()` is a built-in middleware function in Express. This method is used to parse the incoming requests with JSON payloads and is based upon the bodyparser.
+- `express.json()`: It parses incoming JSON requests and puts the parsed data in req.body.
