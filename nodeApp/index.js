@@ -79,3 +79,21 @@ app.delete("/books/:id", (req, res) => {
     res.status(500).json({ error: "Not a valid document ID" });
   }
 });
+
+app.patch("/books/:id", (req, res) => {
+  const id = req.params.id;
+  const updates = req.body;
+
+  if (ObjectId.isValid(id)) {
+    db.collection("books")
+      .updateOne({ _id: ObjectId(id) }, { $set: updates })
+      .then((doc) => {
+        res.status(200).json(doc);
+      })
+      .catch((error) =>
+        res.status(500).json({ error: "Could not update the document" })
+      );
+  } else {
+    res.status(500).json({ error: "Not a valid document ID" });
+  }
+});
