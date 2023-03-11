@@ -62,3 +62,20 @@ app.post("/books", (req, res) => {
       res.status(500).json({ err: "Could not create a new document!!" });
     });
 });
+
+app.delete("/books/:id", (req, res) => {
+  const id = req.params.id;
+
+  if (ObjectId.isValid(id)) {
+    db.collection("books")
+      .deleteOne({ _id: ObjectId(id) })
+      .then((doc) => {
+        res.status(200).json(doc);
+      })
+      .catch((error) =>
+        res.status(500).json({ error: "Could not delete the document" })
+      );
+  } else {
+    res.status(500).json({ error: "Not a valid document ID" });
+  }
+});
