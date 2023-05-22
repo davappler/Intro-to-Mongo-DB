@@ -37,10 +37,10 @@ Starting and stopping the service with
 
 (We are assuming `bookstore` is a database and `books` is a collection in that database)
 
-- `db.bookstore.insertOne()` - This will insert one document in the collection
-- `db.bookstore.insertOne({title:"The magic",pages:500})`
+- `db.books.insertOne()` - This will insert one document in the collection
+- `db.books.insertOne({title:"The magic",pages:500})`
 - If a collection does not exist, `insertOne` will still create one in order to add document in it (Just like an object property is created if it does not exit in js)
-- `db.bookstore.insertMany([{},{},{}])` - This will insert many documents in the collection
+- `db.books.insertMany([{},{},{}])` - This will insert many documents in the collection
 - `db.books.find()` - Will find the first 20 documents from this collection
 - `db.books.find({author:"J.K Rowling"})` - We can filter with the help of `find()` method
 - `db.books.find({author:"J.K Rowling"},{title:1, author:1})` - `find` takes a second argument as an object and only returns properties that are 1/true.
